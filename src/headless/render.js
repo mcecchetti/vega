@@ -7,10 +7,14 @@ vg.headless.render = function(opt, callback) {
         renderer: opt.renderer
       }).update();
 
-      if (opt.renderer === "svg") {
+      if (opt.renderer === "scene") {
+          callback(null, {scene: view.sceneDAG()});
+      }
+      else if (opt.renderer === "svg") {
         // extract rendered svg
         callback(null, {svg: view.svg()});
-      } else {
+      }
+      else if (opt.renderer === "canvas") {
         // extract rendered canvas, waiting for any images to load
         view.canvasAsync(function(canvas) {
           callback(null, {canvas: canvas});

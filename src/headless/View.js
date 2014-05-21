@@ -10,7 +10,7 @@ vg.headless.View = (function() {
     this._height = this.__height = height || 500;
     this._padding = pad || {top:0, left:0, bottom:0, right:0};
     this._autopad = vg.isString(this._padding) ? 1 : 0;
-    this._renderer = new vg[type].Renderer();
+    this._renderer = (type !== "scene") ? new vg[type].Renderer() : null;
     this._viewport = vp || null;
     this.initialize();
   };
@@ -34,6 +34,19 @@ vg.headless.View = (function() {
       this._model.width(width);
     }
     return this;
+  };
+
+  prototype.sceneDAG = function() {
+      var scene = this._model.scene();
+      vg.scene.visit(scene, function(node) {
+        delete node.axes;
+        delete node.scales;
+        delete node.legends;
+        delete node.def;
+        delete node.mark;
+        delete node.group;
+      });
+      return scene;
   };
 
   prototype.height = function(height) {
@@ -123,6 +136,7 @@ vg.headless.View = (function() {
   };
   
   prototype.canvasAsync = function(callback) {
+    if (this._type !== "canvas") return;
     var r = this._renderer, view = this;
     
     function wait() {
@@ -173,7 +187,7 @@ vg.headless.View = (function() {
     
     if (this._type === "svg") {
       this.initSVG(w, h, pad);
-    } else {
+    } else if (this._type === "canvas") {
       this.initCanvas(w, h, pad);
     }
     
@@ -201,10 +215,11 @@ vg.headless.View = (function() {
 
     // configure renderer
     this._renderer.initialize(this._el, w, h, pad);
-  }
+  };
   
   prototype.render = function(items) {
-    this._renderer.render(this._model.scene(), items);
+    if (this._renderer)
+        this._renderer.render(this._model.scene(), items);
     return this;
   };
   
