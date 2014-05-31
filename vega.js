@@ -6990,6 +6990,8 @@ vg.headless = {};vg.headless.View = (function() {
         delete node.def;
         delete node.mark;
         delete node.group;
+        delete node.bounds;
+        delete node["bounds:prev"];
       });
       return scene;
   };
