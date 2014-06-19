@@ -48,6 +48,9 @@ vg.headless.View = (function() {
         delete node.bounds;
         delete node["bounds:prev"];
       });
+      if (scene && scene.items && scene.items[0]) {
+          scene.items[0].padding = this._padding;
+      }
       return scene;
   };
 
