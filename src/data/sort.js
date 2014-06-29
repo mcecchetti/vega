@@ -7,7 +7,7 @@ vg.data.sort = function() {
     for (var i=0, n=data.length; i<n; ++i) data[i].index = i; // re-index
     return data;
   }
-  
+
   sort.by = function(s) {
     by = vg.comparator(s);
     return sort;

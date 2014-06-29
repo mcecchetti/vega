@@ -11,7 +11,7 @@ vg.scene.encode = (function() {
       : encode.call(this, scene, scene, def, trans, request);
     return scene;
   }
-  
+
   function update(scene, def, trans, request, items) {
     items = vg.array(items);
     var i, len, item, group, props, prop;
@@ -26,7 +26,7 @@ vg.scene.encode = (function() {
       }
     }
   }
-  
+
   function encode(group, scene, def, trans, request) {
     encodeItems.call(this, group, scene.items, def, trans, request);
     if (scene.marktype === GROUP) {
@@ -35,13 +35,13 @@ vg.scene.encode = (function() {
       vg.scene.bounds.mark(scene);
     }
   }
-  
+
   function encodeLegend(group, scene, def, trans, request) {
     encodeGroup.call(this, scene, def, group, trans, request);
     encodeItems.call(this, group, scene.items, def, trans, request);
     vg.scene.bounds.mark(scene, null, true);
   }
-  
+
   function encodeGroup(scene, def, parent, trans, request) {
     var i, len, m, mlen, group, scales,
         axes, axisItems, axisDef, leg, legItems, legDef;
@@ -53,12 +53,12 @@ vg.scene.encode = (function() {
       // use parent scales if there are no group-level scale defs
       scales = group.scales || (group.scales =
         def.scales ? vg.extend({}, parent.scales) : parent.scales);
-      
+
       // update group-level scales
       if (def.scales) {
         vg.parse.scales(def.scales, scales, this._data, group);
       }
-      
+
       // update group-level axes
       if (def.axes) {
         axes = group.axes || (group.axes = []);
@@ -71,16 +71,16 @@ vg.scene.encode = (function() {
           encode.call(this, group, group.axisItems[i], axisDef, trans);
         });
       }
-      
+
       // encode children marks
       for (m=0, mlen=group.items.length; m<mlen; ++m) {
         encode.call(this, group, group.items[m], def.marks[m], trans, request);
       }
     }
-    
+
     // compute bounds (without legend)
     vg.scene.bounds.mark(scene, null, !def.legends);
-    
+
     // update legends
     if (def.legends) {
       for (i=0, len=scene.items.length; i<len; ++i) {
@@ -98,8 +98,8 @@ vg.scene.encode = (function() {
       vg.scene.bounds.mark(scene, null, true);
     }
   }
-  
-  function encodeItems(group, items, def, trans, request) {    
+
+  function encodeItems(group, items, def, trans, request) {
     var props  = def.properties || EMPTY,
         enter  = props.enter,
         update = props.update,
@@ -124,11 +124,11 @@ vg.scene.encode = (function() {
         item.status = UPDATE;
       }
 
-      // update set      
+      // update set
       if (item.status !== EXIT && update) {
         update.call(vg, item, group, trans);
       }
-      
+
       // exit set
       if (item.status === EXIT) {
         if (exit) exit.call(vg, item, group, trans);
@@ -137,6 +137,6 @@ vg.scene.encode = (function() {
       }
     }
   }
-  
+
   return main;
 })();

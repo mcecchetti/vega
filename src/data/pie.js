@@ -15,13 +15,13 @@ vg.data.pie = function() {
         a = start,
         k = (end - start) / d3.sum(values),
         index = d3.range(data.length);
-    
+
     if (sort) {
       index.sort(function(a, b) {
         return values[a] - values[b];
       });
     }
-    
+
     index.forEach(function(i) {
       var d;
       data[i].value = (d = values[i]);
@@ -29,7 +29,7 @@ vg.data.pie = function() {
       data[i][output.midAngle] = (a + 0.5 * d * k);
       data[i][output.endAngle] = (a += d * k);
     });
-    
+
     return data;
   }
 
@@ -37,17 +37,17 @@ vg.data.pie = function() {
     sort = b;
     return pie;
   };
-       
+
   pie.value = function(field) {
     value = field ? vg.accessor(field) : one;
     return pie;
   };
-  
+
   pie.startAngle = function(startAngle) {
     start = Math.PI * startAngle / 180;
     return pie;
   };
-  
+
   pie.endAngle = function(endAngle) {
     end = Math.PI * endAngle / 180;
     return pie;

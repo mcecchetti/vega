@@ -24,7 +24,7 @@ vg.data.fold = function() {
     }
 
     return values;
-  }  
+  }
 
   fold.fields = function(f) {
     fields = vg.array(f);

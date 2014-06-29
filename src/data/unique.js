@@ -11,12 +11,12 @@ vg.data.unique = function() {
         return o;
       });
   }
-  
+
   unique.field = function(f) {
     field = vg.accessor(f);
     return unique;
   };
-  
+
   unique.as = function(x) {
     as = x;
     return unique;

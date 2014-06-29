@@ -7,7 +7,7 @@ vg.data.load = function(uri, callback) {
   } else {
     // in browser, use xhr
     vg_load_xhr(url, callback);
-  }  
+  }
 };
 
 var vg_load_protocolRE = /^[A-Za-z]+\:\/\//;

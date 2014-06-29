@@ -3,9 +3,9 @@ vg.Bounds = (function() {
     this.clear();
     if (b) this.union(b);
   };
-  
+
   var prototype = bounds.prototype;
-  
+
   prototype.clear = function() {
     this.x1 = +Number.MAX_VALUE;
     this.y1 = +Number.MAX_VALUE;
@@ -13,7 +13,7 @@ vg.Bounds = (function() {
     this.y2 = -Number.MAX_VALUE;
     return this;
   };
-  
+
   prototype.set = function(x1, y1, x2, y2) {
     this.x1 = x1;
     this.y1 = y1;
@@ -37,7 +37,7 @@ vg.Bounds = (function() {
     this.y2 += d;
     return this;
   };
-  
+
   prototype.round = function() {
     this.x1 = Math.floor(this.x1);
     this.y1 = Math.floor(this.y1);
@@ -53,7 +53,7 @@ vg.Bounds = (function() {
     this.y2 += dy;
     return this;
   };
-  
+
   prototype.rotate = function(angle, x, y) {
     var cos = Math.cos(angle),
         sin = Math.sin(angle),

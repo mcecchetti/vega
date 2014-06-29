@@ -4,11 +4,11 @@ vg.data.link = function() {
       target = vg.accessor("target"),
       tension = 0.2,
       output = {"path": "path"};
-  
+
   function line(d) {
     var s = source(d),
         t = target(d);
-    return "M" + s.x + "," + s.y 
+    return "M" + s.x + "," + s.y
          + "L" + t.x + "," + t.y;
   }
 
@@ -24,7 +24,7 @@ vg.data.link = function() {
          + " " + (t.x+iy) + "," + (t.y-ix)
          + " " + t.x + "," + t.y;
   }
-  
+
   function diagonalX(d) {
     var s = source(d),
         t = target(d),
@@ -52,14 +52,14 @@ vg.data.link = function() {
     diagonalX: diagonalX,
     diagonalY: diagonalY
   };
-  
+
   function link(data) {
     var path = shapes[shape];
-        
+
     data.forEach(function(d) {
       d[output.path] = path(d);
     });
-    
+
     return data;
   }
 
@@ -72,17 +72,17 @@ vg.data.link = function() {
     tension = val;
     return link;
   };
-  
+
   link.source = function(field) {
     source = vg.accessor(field);
     return link;
   };
-  
+
   link.target = function(field) {
     target = vg.accessor(field);
     return link;
   };
-  
+
   link.output = function(map) {
     vg.keys(output).forEach(function(k) {
       if (map[k] !== undefined) {
@@ -91,6 +91,6 @@ vg.data.link = function() {
     });
     return link;
   };
-  
+
   return link;
 };

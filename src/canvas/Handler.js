@@ -5,7 +5,7 @@ vg.canvas.Handler = (function() {
     if (el) this.initialize(el);
     if (model) this.model(model);
   };
-  
+
   var prototype = handler.prototype;
 
   prototype.initialize = function(el, pad, obj) {
@@ -13,7 +13,7 @@ vg.canvas.Handler = (function() {
     this._canvas = d3.select(el).select("canvas.marks").node();
     this._padding = pad;
     this._obj = obj || null;
-    
+
     // add event listeners
     var canvas = this._canvas, that = this;
     events.forEach(function(type) {
@@ -21,15 +21,15 @@ vg.canvas.Handler = (function() {
         prototype[type].call(that, evt);
       });
     });
-    
+
     return this;
   };
-  
+
   prototype.padding = function(pad) {
     this._padding = pad;
     return this;
   };
-  
+
   prototype.model = function(model) {
     if (!arguments.length) return this._model;
     this._model = model;
@@ -87,7 +87,7 @@ vg.canvas.Handler = (function() {
       this.fire("mouseover", evt);
     }
   };
-  
+
   prototype.mouseout = function(evt) {
     if (this._active) {
       this.fire("mouseout", evt);
@@ -134,12 +134,12 @@ vg.canvas.Handler = (function() {
     }
     return this;
   };
-  
+
   // retrieve the current canvas context
   prototype.context = function() {
     return this._canvas.getContext("2d");
   };
-  
+
   // find the scenegraph item at the current mouse position
   // x, y -- the absolute x, y mouse coordinates on the canvas element
   // gx, gy -- the relative coordinates within the current group

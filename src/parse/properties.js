@@ -3,16 +3,16 @@ vg.parse.properties = (function() {
     var code = "",
         names = vg.keys(spec),
         i, len, name, ref, vars = {};
-        
+
     code += "var o = trans ? {} : item;\n"
-    
+
     for (i=0, len=names.length; i<len; ++i) {
       ref = spec[name = names[i]];
       code += (i > 0) ? "\n  " : "  ";
       code += "o."+name+" = "+valueRef(name, ref)+";";
       vars[name] = true;
     }
-    
+
     if (vars.x2) {
       if (vars.x) {
         code += "\n  if (o.x > o.x2) { "
@@ -36,7 +36,7 @@ vg.parse.properties = (function() {
         code += "\n  o.y = o.y2;"
       }
     }
-    
+
     if (hasPath(mark, vars)) code += "\n  item.touch();";
     code += "\n  if (trans) trans.interpolate(item, o);";
 
@@ -47,7 +47,7 @@ vg.parse.properties = (function() {
       vg.log(code);
     }
   }
-  
+
   function hasPath(mark, vars) {
     return vars.path ||
       ((mark==="area" || mark==="line") &&
@@ -55,7 +55,7 @@ vg.parse.properties = (function() {
          vars.y || vars.y2 || vars.height ||
          vars.tension || vars.interpolate));
   }
-  
+
   var GROUP_VARS = {
     "width": 1,
     "height": 1,
@@ -118,19 +118,19 @@ vg.parse.properties = (function() {
       scale = "group.scales[" + scale + "]";
       val = scale + (ref.band ? ".rangeBand()" : "("+val+")");
     }
-    
+
     // multiply, offset, return value
     val = "(" + (ref.mult?(vg.number(ref.mult)+" * "):"") + val + ")"
       + (ref.offset ? " + " + vg.number(ref.offset) : "");
     return val;
   }
-  
+
   function colorRef(type, x, y, z) {
     var xx = x ? valueRef("", x) : vg.config.color[type][0],
         yy = y ? valueRef("", y) : vg.config.color[type][1],
         zz = z ? valueRef("", z) : vg.config.color[type][2];
     return "(this.d3." + type + "(" + [xx,yy,zz].join(",") + ') + "")';
   }
-  
+
   return compile;
 })();

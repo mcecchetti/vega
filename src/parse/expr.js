@@ -1,5 +1,5 @@
 vg.parse.expr = (function() {
-  
+
   var CONSTANT = {
   	"E":       "Math.E",
   	"LN2":     "Math.LN2",
@@ -31,9 +31,9 @@ vg.parse.expr = (function() {
   	"sqrt":   "Math.sqrt",
   	"tan":    "Math.tan"
   };
-  
+
   var lexer = /([\"\']|[\=\<\>\~\&\|\?\:\+\-\/\*\%\!\^\,\;\[\]\{\}\(\) ]+)/;
-      
+
   return function(x) {
     var tokens = x.split(lexer),
         t, v, i, n, sq, dq;
@@ -50,8 +50,8 @@ vg.parse.expr = (function() {
         tokens[i] = FUNCTION[t];
       }
     }
-    
+
     return Function("d", "index", "data", "return ("+tokens.join("")+");");
   };
-  
+
 })();

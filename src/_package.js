@@ -12,7 +12,7 @@ vg.isFunction = function(obj) {
 vg.isString = function(obj) {
   return toString.call(obj) == '[object String]';
 };
-  
+
 vg.isArray = Array.isArray || function(obj) {
   return toString.call(obj) == '[object Array]';
 };

@@ -6,21 +6,21 @@ vg.svg.marks = (function() {
   function key(o)   { return o.key; }
   function size(o)  { return o.size==null ? 100 : o.size; }
   function shape(o) { return o.shape || "circle"; }
-      
+
   var arc_path    = d3.svg.arc(),
       area_path   = d3.svg.area().x(x).y1(y).y0(yh),
       line_path   = d3.svg.line().x(x).y(y),
       symbol_path = d3.svg.symbol().type(shape).size(size);
-  
+
   var mark_id = 0,
       clip_id = 0;
-  
+
   var textAlign = {
     "left":   "start",
     "center": "middle",
     "right":  "end"
   };
-  
+
   var styles = {
     "fill":             "fill",
     "fillOpacity":      "fill-opacity",
@@ -57,14 +57,14 @@ vg.svg.marks = (function() {
       }
     }
   }
-  
+
   function arc(o) {
     var x = o.x || 0,
         y = o.y || 0;
     this.setAttribute("transform", "translate("+x+","+y+")");
     this.setAttribute("d", arc_path(o));
   }
-  
+
   function area(items) {
     if (!items.length) return;
     var o = items[0];
@@ -73,7 +73,7 @@ vg.svg.marks = (function() {
       .tension(o.tension == null ? 0.7 : o.tension);
     this.setAttribute("d", area_path(items));
   }
-  
+
   function line(items) {
     if (!items.length) return;
     var o = items[0];
@@ -82,7 +82,7 @@ vg.svg.marks = (function() {
       .tension(o.tension == null ? 0.7 : o.tension);
     this.setAttribute("d", line_path(items));
   }
-  
+
   function path(o) {
     var x = o.x || 0,
         y = o.y || 0;
@@ -105,14 +105,14 @@ vg.svg.marks = (function() {
     this.setAttribute("x2", o.x2 != null ? o.x2 : x1);
     this.setAttribute("y2", o.y2 != null ? o.y2 : y1);
   }
-  
+
   function symbol(o) {
     var x = o.x || 0,
         y = o.y || 0;
     this.setAttribute("transform", "translate("+x+","+y+")");
     this.setAttribute("d", symbol_path(o));
   }
-  
+
   function image(o) {
     var w = o.width || (o.image && o.image.width) || 0,
         h = o.height || (o.image && o.image.height) || 0,
@@ -121,14 +121,14 @@ vg.svg.marks = (function() {
         y = o.y - (o.baseline === "middle"
           ? h/2 : (o.baseline === "bottom" ? h : 0)),
         url = vg.config.baseURL + o.url;
-    
+
     this.setAttributeNS("http://www.w3.org/1999/xlink", "href", url);
     this.setAttribute("x", x);
     this.setAttribute("y", y);
     this.setAttribute("width", w);
     this.setAttribute("height", h);
   }
-    
+
   function fontString(o) {
     return (o.fontStyle ? o.fontStyle + " " : "")
       + (o.fontVariant ? o.fontVariant + " " : "")
@@ -136,7 +136,7 @@ vg.svg.marks = (function() {
       + (o.fontSize != null ? o.fontSize : vg.config.render.fontSize) + "px "
       + (o.font || vg.config.render.font);
   }
-  
+
   function text(o) {
     var x = o.x || 0,
         y = o.y || 0,
@@ -157,17 +157,17 @@ vg.svg.marks = (function() {
     this.setAttribute("x", x + dx);
     this.setAttribute("y", y + dy);
     this.setAttribute("text-anchor", align);
-    
+
     if (a) this.setAttribute("transform", "rotate("+a+" "+x+","+y+")");
     else this.removeAttribute("transform");
-    
+
     if (base) this.setAttribute("dy", base);
     else this.removeAttribute("dy");
-    
+
     this.textContent = o.text;
     this.style.setProperty("font", fontString(o), null);
   }
-  
+
   function group(o) {
     var x = o.x || 0,
         y = o.y || 0;
@@ -199,7 +199,7 @@ vg.svg.marks = (function() {
       drawMark(g, scene, index, "mark_", tag, attr, nest);
     };
   }
-  
+
   function drawMark(g, scene, index, prefix, tag, attr, nest) {
     var data = nest ? [scene.items] : scene.items,
         evts = scene.interactive===false ? "none" : null,
@@ -225,19 +225,19 @@ vg.svg.marks = (function() {
     } else {
       e.append("rect").attr("class","background").style("pointer-events",evts);
     }
-    
+
     m.exit().remove();
     m.each(attr);
     if (notG) m.each(style);
     else p.selectAll(s+" > rect.background").each(group_bg).each(style);
-    
+
     return p;
   }
 
-  function drawGroup(g, scene, index, prefix) {    
+  function drawGroup(g, scene, index, prefix) {
     var p = drawMark(g, scene, index, prefix || "group_", "g", group),
         c = p.node().childNodes, n = c.length, i, j, m;
-    
+
     for (i=0; i<n; ++i) {
       var items = c[i].__data__.items,
           legends = c[i].__data__.legendItems || [],
@@ -296,5 +296,5 @@ vg.svg.marks = (function() {
       draw:    draw // expose for extensibility
     }
   };
-  
+
 })();

@@ -46,7 +46,7 @@ vg.scene.axis = function() {
     var fmt = tickFormat==null ? (scale.tickFormat ? scale.tickFormat.apply(scale, tickArguments) : String) : tickFormat;
     major.forEach(function(d) { d.label = fmt(d.data); });
     var tdata = title ? [title].map(vg.data.ingest) : [];
-    
+
     // update axis def
     def.marks[0].from = function() { return grid ? major : []; };
     def.marks[1].from = function() { return major; };
@@ -89,7 +89,7 @@ vg.scene.axis = function() {
 
     vg_axisDomainExtend(orient, domain, range, tickEndSize);
     vg_axisTitleExtend(orient, title, range, titleOffset); // TODO get offset
-    
+
     // add / override custom style properties
     vg.extend(gridLines.properties.update, gridLineStyle);
     vg.extend(majorTicks.properties.update, majorTickStyle);
@@ -148,7 +148,7 @@ vg.scene.axis = function() {
     }
     return axis;
   };
-  
+
   axis.tickSize = function(x, y) {
     if (!arguments.length) return tickMajorSize;
     var n = arguments.length - 1,
@@ -173,7 +173,7 @@ vg.scene.axis = function() {
     tickSubdivide = +x;
     return axis;
   };
-  
+
   axis.offset = function(x) {
     if (!arguments.length) return offset;
     offset = vg.isObject(x) ? x : +x;
@@ -239,7 +239,7 @@ vg.scene.axis = function() {
     if (domainStyle !== x) { domainStyle = x; }
     return axis;
   };
-  
+
   axis.reset = function() { reset(); };
 
   return axis;
@@ -300,7 +300,7 @@ function vg_axisLabelExtend(orient, labels, oldScale, newScale, size, pad) {
   size = Math.max(size, 0) + pad;
   if (orient === "left" || orient === "top") {
     size *= -1;
-  }  
+  }
   if (orient === "top" || orient === "bottom") {
     vg.extend(labels.properties.enter, {
       x: oldScale,
@@ -348,7 +348,7 @@ function vg_axisTicksExtend(orient, ticks, oldScale, newScale, size) {
     });
     vg.extend(ticks.properties.exit, {
       x:  newScale,
-    });        
+    });
   } else {
     vg.extend(ticks.properties.enter, {
       x:  {value: 0},
@@ -369,7 +369,7 @@ function vg_axisTicksExtend(orient, ticks, oldScale, newScale, size) {
 function vg_axisTitleExtend(orient, title, range, offset) {
   var mid = ~~((range[0] + range[1]) / 2),
       sign = (orient === "top" || orient === "left") ? -1 : 1;
-  
+
   if (orient === "bottom" || orient === "top") {
     vg.extend(title.properties.update, {
       x: {value: mid},

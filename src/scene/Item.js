@@ -2,7 +2,7 @@ vg.scene.Item = (function() {
   function item(mark) {
     this.mark = mark;
   }
-  
+
   var prototype = item.prototype;
 
   prototype.hasPropertySet = function(name) {
@@ -19,7 +19,7 @@ vg.scene.Item = (function() {
         midx = group.items.indexOf(mark) + offset;
     return group.items[midx].items[iidx];
   };
-  
+
   prototype.sibling = function(offset) {
     if (offset === 0) return this;
     offset = offset || -1;
@@ -27,7 +27,7 @@ vg.scene.Item = (function() {
         iidx = mark.items.indexOf(this) + offset;
     return mark.items[iidx];
   };
-  
+
   prototype.remove = function() {
     var item = this,
         list = item.mark.items,
@@ -35,12 +35,12 @@ vg.scene.Item = (function() {
     if (i >= 0) (i===list.length-1) ? list.pop() : list.splice(i, 1);
     return item;
   };
-  
+
   prototype.touch = function() {
     if (this.pathCache) this.pathCache = null;
     if (this.mark.pathCache) this.mark.pathCache = null;
   };
-  
+
   return item;
 })();
 

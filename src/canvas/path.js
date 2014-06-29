@@ -190,7 +190,7 @@ vg.canvas.path = (function() {
     if (t == undefined) t = 0;
 
     g.beginPath();
-  
+
     for (var i=0, len=path.length; i<len; ++i) {
       current = path[i];
 
@@ -706,7 +706,7 @@ vg.canvas.path = (function() {
     }
     return bounds;
   }
-  
+
   function area(items) {
     var o = items[0];
     var area = d3.svg.area()
@@ -727,7 +727,7 @@ vg.canvas.path = (function() {
     if (o.tension != null) line.tension(o.tension);
     return line(items);
   }
-  
+
   return {
     parse:  parse,
     render: render,
@@ -735,5 +735,5 @@ vg.canvas.path = (function() {
     area:   area,
     line:   line
   };
-  
+
 })();

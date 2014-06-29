@@ -26,15 +26,15 @@ vg.scene.legend = function() {
 
   legend.def = function() {
     var scale = size || shape || fill || stroke;
-    
+
     format = !formatString ? null : ((scale.type === 'time')
       ? d3.time.format(formatString)
       : d3.format(formatString));
-    
+
     if (!legendDef) {
       legendDef = (scale===fill || scale===stroke) && !discrete(scale.type)
         ? quantDef(scale)
-        : ordinalDef(scale);      
+        : ordinalDef(scale);
     }
     legendDef.orient = orient;
     legendDef.offset = offset;
@@ -55,7 +55,7 @@ vg.scene.legend = function() {
       ? (scale.ticks ? scale.ticks.apply(scale, tickArguments) : scale.domain())
       : values).map(vg.data.ingest);
     var fmt = format==null ? (scale.tickFormat ? scale.tickFormat.apply(scale, tickArguments) : String) : format;
-    
+
     // determine spacing between legend entries
     var fs, range, offset, pad=5, domain = d3.range(data.length);
     if (size) {
@@ -81,7 +81,7 @@ vg.scene.legend = function() {
       sz += 5 + ((ts && ts.value) || vg.config.legend.titleFontSize);
     }
     for (var i=0, n=range.length; i<n; ++i) range[i] += sz;
-    
+
     // build scale for label layout
     var scale = {
       name: "legend",
@@ -90,7 +90,7 @@ vg.scene.legend = function() {
       domain: domain,
       range: range
     };
-    
+
     // update legend def
     var tdata = (title ? [title] : []).map(vg.data.ingest);
     data.forEach(function(d) {
@@ -112,7 +112,7 @@ vg.scene.legend = function() {
 
     // extend legend marks
     vg_legendSymbolExtend(symbols, size, shape, fill, stroke);
-    
+
     // add / override custom style properties
     vg.extend(titles.properties.update, titleStyle);
     vg.extend(symbols.properties.update, symbolStyle);
@@ -154,7 +154,7 @@ vg.scene.legend = function() {
       range: [padding, width+padding]
     };
     if (scale.type==="pow") layout.exponent = scale.exponent();
-    
+
     // update legend def
     var tdata = (title ? [title] : []).map(vg.data.ingest);
     data.forEach(function(d,i) {
@@ -167,7 +167,7 @@ vg.scene.legend = function() {
     def.marks[2].from = function() { return data; };
     return def;
   }
-  
+
   function q_legend_def(scale) {
     // setup legend marks
     var titles = vg_legendTitle(),
@@ -180,7 +180,7 @@ vg.scene.legend = function() {
         min = dom[0],
         max = dom[dom.length-1],
         f = scale.copy().domain([min, max]).range([0,1]);
-        
+
     var stops = (scale.type !== "linear" && scale.ticks)
       ? scale.ticks.call(scale, 15) : dom;
     if (min !== stops[0]) stops.unshift(min);
@@ -211,7 +211,7 @@ vg.scene.legend = function() {
       gradient.properties.update.y.value += sz;
       labels.properties.update.y.value += sz;
     }
-    
+
     // padding from legend border
     titles.properties.enter.x.value += padding;
     titles.properties.enter.y.value += padding;
@@ -250,7 +250,7 @@ vg.scene.legend = function() {
     if (fill !== x) { fill = x; reset(); }
     return legend;
   };
-  
+
   legend.stroke = function(x) {
     if (!arguments.length) return stroke;
     if (stroke !== x) { stroke = x; reset(); }
@@ -319,7 +319,7 @@ vg.scene.legend = function() {
     labelStyle = x;
     return legend;
   };
-  
+
   legend.titleProperties = function(x) {
     if (!arguments.length) return titleStyle;
     titleStyle = x;
@@ -366,7 +366,7 @@ function vg_legendUpdate(item, group, trans) {
       break;
     };
   }
-  
+
   if (trans) trans.interpolate(item, o);
   item.mark.def.properties.enter(item, group, trans);
 }

@@ -4,7 +4,7 @@ vg.data.slice = function() {
 
   function slice(data) {
     data = vg.values(data);
-    
+
     if (by === "min") {
       data = [data[vg.minIndex(data, field)]];
     } else if (by === "max") {
@@ -21,12 +21,12 @@ vg.data.slice = function() {
     }
     return data;
   }
-  
+
   slice.by = function(x) {
     by = x;
     return slice;
   };
-  
+
   slice.field = function(f) {
     field = vg.accessor(f);
     return slice;

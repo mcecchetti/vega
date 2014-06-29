@@ -18,7 +18,7 @@ vg.data.geo = (function() {
           "x": "x",
           "y": "y"
         };
-    
+
     var map = vg.data.mapper(function(d) {
       var ll = [lon(d), lat(d)],
           xy = func(ll);
@@ -30,7 +30,7 @@ vg.data.geo = (function() {
     map.func = function() {
       return func;
     };
-        
+
     map.projection = function(p) {
       if (projection !== p) {
         projection = p;
@@ -49,7 +49,7 @@ vg.data.geo = (function() {
         return map;
       }
     });
-    
+
     map.lon = function(field) {
       lon = vg.accessor(field);
       return map;
@@ -59,7 +59,7 @@ vg.data.geo = (function() {
       lat = vg.accessor(field);
       return map;
     };
-    
+
     map.output = function(map) {
       vg.keys(output).forEach(function(k) {
         if (map[k] !== undefined) {
@@ -68,11 +68,11 @@ vg.data.geo = (function() {
       });
       return map;
     };
-    
-    
+
+
     return map;
   };
-  
+
   geo.params = params;
   return geo;
 })();

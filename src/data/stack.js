@@ -13,10 +13,10 @@ vg.data.stack = function() {
     var out_y0 = output["y0"],
         out_y1 = output["y1"],
         out_cy = output["cy"];
-    
+
     var series = stacks(data);
     if (series.length === 0) return data;
-    
+
     layout.out(function(d, y0, y) {
       if (d.datum) {
         d.datum[out_y0] = y0;
@@ -24,10 +24,10 @@ vg.data.stack = function() {
         d.datum[out_cy] = y0 + y/2;
       }
     })(series);
-    
+
     return data;
   }
-  
+
   function stacks(data) {
     var values = vg.values(data),
         points = [], series = [],
@@ -50,7 +50,7 @@ vg.data.stack = function() {
 
     // emit data series for stack layout
     for (x=points[0].x, i=0, j=0, k=0, n=points.length; k<n; ++k) {
-      p = points[k];    
+      p = points[k];
       if (p.x !== x) {
         while (i < series.length) series[i++].push({x:j, y:0});
         x = p.x; i = 0; j += 1;
@@ -63,12 +63,12 @@ vg.data.stack = function() {
 
     return series;
   }
-       
+
   stack.point = function(field) {
     point = vg.accessor(field);
     return stack;
   };
-  
+
   stack.height = function(field) {
     height = vg.accessor(field);
     return stack;

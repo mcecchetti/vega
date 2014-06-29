@@ -4,25 +4,25 @@ vg.scene.build = (function() {
       UPDATE = vg.scene.UPDATE,
       EXIT   = vg.scene.EXIT,
       DEFAULT= {"sentinel":1};
-  
+
   function build(def, db, node, parentData, reentrant) {
     var data = vg.scene.data(
       def.from ? def.from(db, node, parentData) : null,
       parentData);
-    
+
     // build node and items
     node = buildNode(def, node);
     node.items = buildItems(def, data, node);
     buildTrans(def, node);
-    
+
     // recurse if group
     if (def.type === GROUP) {
       buildGroup(def, db, node, reentrant);
     }
-    
+
     return node;
   };
-  
+
   function buildNode(def, node) {
     node = node || {};
     node.def = def;
@@ -30,7 +30,7 @@ vg.scene.build = (function() {
     node.interactive = !(def.interactive === false);
     return node;
   }
-  
+
   function buildItems(def, data, node) {
     var keyf = keyFunction(def.key),
         prev = node.items || [],
@@ -43,7 +43,7 @@ vg.scene.build = (function() {
       item.status = EXIT;
       if (keyf) map[item.key] = item;
     }
-    
+
     for (i=0, len=data.length; i<len; ++i) {
       datum = data[i];
       key = i;
@@ -62,10 +62,10 @@ vg.scene.build = (function() {
         next.splice(item.index, 0, item);
       }
     }
-    
+
     return next;
   }
-  
+
   function buildGroup(def, db, node, reentrant) {
     var groups = node.items,
         marks = def.marks,
@@ -73,7 +73,7 @@ vg.scene.build = (function() {
 
     for (i=0, len=groups.length; i<len; ++i) {
       group = groups[i];
-      
+
       // update scales
       if (!reentrant && group.scales) for (name in group.scales) {
         if (name.indexOf(":prev") < 0) {
@@ -98,7 +98,7 @@ vg.scene.build = (function() {
       for (i=0; i<n; ++i) def.delay.call(this, items[i], group);
     }
   }
-  
+
   function keyFunction(key) {
     if (key == null) return null;
     var f = vg.array(key).map(vg.accessor);
@@ -110,6 +110,6 @@ vg.scene.build = (function() {
       return s;
     }
   }
-  
+
   return build;
 })();

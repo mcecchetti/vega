@@ -13,9 +13,9 @@ vg.View = (function() {
     this._io = vg.canvas;
     if (el) this.initialize(el);
   };
-  
+
   var prototype = view.prototype;
-  
+
   prototype.width = function(width) {
     if (!arguments.length) return this.__width;
     if (this.__width !== width) {
@@ -57,7 +57,7 @@ vg.View = (function() {
     }
     return this;
   };
-  
+
   prototype.autopad = function(opt) {
     if (this._autopad < 1) return this;
     else this._autopad = 0;
@@ -94,7 +94,7 @@ vg.View = (function() {
     }
     return this;
   };
-  
+
   prototype.renderer = function(type) {
     if (!arguments.length) return this._io;
     if (type === "canvas") type = vg.canvas;
@@ -136,10 +136,10 @@ vg.View = (function() {
   prototype.initialize = function(el) {
     var v = this, prevHandler,
         w = v._width, h = v._height, pad = v._padding;
-    
+
     // clear pre-existing container
     d3.select(el).select("div.vega").remove();
-    
+
     // add div container
     this._el = el = d3.select(el)
       .append("div")
@@ -152,11 +152,11 @@ vg.View = (function() {
         .style("height", (v._viewport[1] || h)+"px")
         .style("overflow", "auto");
     }
-    
+
     // renderer
     v._renderer = (v._renderer || new this._io.Renderer())
       .initialize(el, w, h, pad);
-    
+
     // input handler
     prevHandler = v._handler;
     v._handler = new this._io.Handler()
@@ -168,26 +168,26 @@ vg.View = (function() {
         v._handler.on(h.type, h.handler);
       });
     }
-    
+
     return this;
   };
-  
+
   prototype.render = function(items) {
     this._renderer.render(this._model.scene(), items);
     return this;
   };
-  
+
   prototype.on = function() {
     this._handler.on.apply(this._handler, arguments);
     return this;
   };
-  
+
   prototype.off = function() {
     this._handler.off.apply(this._handler, arguments);
     return this;
   };
-  
-  prototype.update = function(opt) {    
+
+  prototype.update = function(opt) {
     opt = opt || {};
     var view = this,
         trans = opt.duration
@@ -196,7 +196,7 @@ vg.View = (function() {
 
     view._build = view._build || (view._model.build(), true);
     view._model.encode(trans, opt.props, opt.items);
-    
+
     if (trans) {
       trans.start(function(items) {
         view._renderer.render(view._model.scene(), items);
@@ -206,7 +206,7 @@ vg.View = (function() {
 
     return view.autopad(opt);
   };
-      
+
   return view;
 })();
 
@@ -240,7 +240,7 @@ vg.ViewFactory = function(defs) {
         }
       });
     }
-  
+
     return v;
   };
 };

@@ -30,12 +30,12 @@ vg.data.read = (function() {
     var d = d3.tsv.parse(data);
     return d;
   };
-  
+
   formats.topojson = function(data, format) {
     if (topojson == null) {
       vg.error("TopoJSON library not loaded.");
       return [];
-    }    
+    }
     var t = vg.isObject(data) ? data : JSON.parse(data),
         obj = [];
 
@@ -52,19 +52,19 @@ vg.data.read = (function() {
 
     return obj;
   };
-  
+
   formats.treejson = function(data, format) {
     data = vg.isObject(data) ? data : JSON.parse(data);
     return vg.tree(data, format.children);
   };
-  
+
   function parseValues(data, types) {
     var cols = vg.keys(types),
         p = cols.map(function(col) { return parsers[types[col]]; }),
         tree = vg.isTree(data);
     vg_parseArray(tree ? [data] : data, cols, p, tree);
   }
-  
+
   function vg_parseArray(data, cols, p, tree) {
     var d, i, j, len, clen;
     for (i=0, len=data.length; i<len; ++i) {

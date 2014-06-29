@@ -39,14 +39,14 @@ vg.parse.scales = (function() {
 
   function ordinal(def, scale, rng, db, data) {
     var domain, sort, str, refs, dataDrivenRange = false;
-    
+
     // range pre-processing for data-driven ranges
     if (vg.isObject(def.range) && !vg.isArray(def.range)) {
       dataDrivenRange = true;
       refs = def.range.fields || vg.array(def.range);
       rng = extract(refs, db, data);
     }
-    
+
     // domain
     sort = def.sort && !dataDrivenRange;
     domain = domainValues(def, db, data, sort);
@@ -91,16 +91,16 @@ vg.parse.scales = (function() {
       }
     }
   }
-  
+
   function extract(refs, db, data) {
-    return refs.reduce(function(values, r) {        
+    return refs.reduce(function(values, r) {
       var dat = vg.values(db[r.data] || data),
           get = vg.accessor(vg.isString(r.field)
               ? r.field : "data." + vg.accessor(r.field.group)(data));
       return vg.unique(dat, get, values);
     }, []);
   }
-  
+
   function domainValues(def, db, data, sort) {
     var domain = def.domain, values, refs;
     if (vg.isArray(domain)) {
@@ -112,17 +112,17 @@ vg.parse.scales = (function() {
     if (values && sort) values.sort(vg.cmp);
     return values;
   }
-  
+
   function domainMinMax(def, db, data) {
     var domain = [null, null], refs, z;
-    
+
     function extract(ref, min, max, z) {
       var dat = vg.values(db[ref.data] || data);
       var fields = vg.array(ref.field).map(function(f) {
         return vg.isString(f) ? f
           : "data." + vg.accessor(f.group)(data);
       });
-      
+
       fields.forEach(function(f,i) {
         f = vg.accessor(f);
         if (min) domain[0] = d3.min([domain[0], d3.min(dat, f)]);
@@ -193,7 +193,7 @@ vg.parse.scales = (function() {
     if (def.rangeMax !== undefined) {
       rng[rng.length-1] = def.rangeMax;
     }
-    
+
     if (def.reverse !== undefined) {
       var rev = def.reverse;
       if (vg.isObject(rev)) {
@@ -201,7 +201,7 @@ vg.parse.scales = (function() {
       }
       if (rev) rng = rng.reverse();
     }
-    
+
     return rng;
   }
 

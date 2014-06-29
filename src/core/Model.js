@@ -29,7 +29,7 @@ vg.Model = (function() {
       (src[k] || []).forEach(function(s) { deps[s] = k; sources(s); });
     }
     vg.keys(data).forEach(sources);
-    
+
     // update data sets in dependency-aware order
     for (i=0; i<len; ++i) {
       if (data[k=keys[i]]) {

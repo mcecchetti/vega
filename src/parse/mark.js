@@ -26,6 +26,6 @@ vg.parse.mark = function(mark) {
   if (group) {
     mark.marks = group.map(vg.parse.mark);
   }
-    
+
   return mark;
 };

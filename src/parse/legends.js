@@ -37,6 +37,6 @@ vg.parse.legends = (function() {
     legend.symbolProperties(p && p.symbols || {});
     legend.gradientProperties(p && p.gradient || {});
   }
-  
+
   return legends;
 })();

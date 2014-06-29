@@ -1,9 +1,9 @@
 vg.data.flatten = function() {
-    
+
   function flatten(data) {
     return flat(data, []);
   }
-  
+
   function flat(data, list) {
     if (data.values) {
       for (var i=0, n=data.values.length; i<n; ++i) {
@@ -14,6 +14,6 @@ vg.data.flatten = function() {
     }
     return list;
   }
-  
+
   return flatten;
 };

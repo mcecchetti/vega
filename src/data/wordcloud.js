@@ -5,7 +5,7 @@ vg.data.wordcloud = function() {
       fontSize = function() { return 14; },
       rotate = function() { return 0; },
       params = ["font", "fontStyle", "fontWeight", "padding"];
-  
+
   var output = {
     "x": "x",
     "y": "y",
@@ -13,7 +13,7 @@ vg.data.wordcloud = function() {
     "font": "font",
     "rotate": "angle"
   };
-  
+
   function cloud(data, db, group) {
     function finish(tags, bounds) {
       var size = layout.size(),
@@ -37,7 +37,7 @@ vg.data.wordcloud = function() {
         }
       }
     }
-    
+
     layout
       .size(vg.data.size(size, group))
       .text(text)
@@ -53,17 +53,17 @@ vg.data.wordcloud = function() {
     text = vg.accessor(field);
     return cloud;
   };
-  
+
   cloud.size = function(sz) {
     size = sz;
     return cloud;
   };
-         
+
   cloud.fontSize = function(field) {
     fontSize = vg.accessor(field);
     return cloud;
   };
-  
+
   cloud.rotate = function(x) {
     var v;
     if (vg.isObject(x) && !Array.isArray(x)) {
@@ -99,6 +99,6 @@ vg.data.wordcloud = function() {
     });
     return cloud;
   };
-  
+
   return cloud;
 };

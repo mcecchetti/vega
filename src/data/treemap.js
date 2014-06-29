@@ -16,7 +16,7 @@ vg.data.treemap = function() {
       .size(vg.data.size(size, group))
       .value(value)
       .nodes(vg.isTree(data) ? data : {values: data});
-    
+
     var keys = vg.keys(output),
         len = keys.length;
     data.forEach(function(d) {
@@ -30,7 +30,7 @@ vg.data.treemap = function() {
         }
       }
     });
-    
+
     return data;
   }
 

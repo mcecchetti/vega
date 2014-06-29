@@ -24,7 +24,7 @@ vg.data.cross = function() {
     other = d;
     return cross;
   };
-  
+
   cross.diagonal = function(x) {
     nodiag = !x;
     return cross;

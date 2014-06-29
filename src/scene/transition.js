@@ -4,15 +4,15 @@ vg.scene.Transition = (function() {
     this.ease = ease && d3.ease(ease) || d3.ease("cubic-in-out");
     this.updates = {next: null};
   }
-  
+
   var prototype = trans.prototype;
-  
+
   prototype.interpolate = function(item, values) {
     var key, curr, next, interp, list = null;
 
     for (key in values) {
       curr = item[key];
-      next = values[key];      
+      next = values[key];
       if (curr !== next) {
         if (key === "text" || curr === undefined) {
           // skip interpolation for text labels or undefined start values
@@ -38,7 +38,7 @@ vg.scene.Transition = (function() {
     }
     return this;
   };
-  
+
   prototype.start = function(callback) {
     var t = this, prev = t.updates, curr = prev.next;
     for (; curr!=null; prev=curr, curr=prev.next) {
@@ -80,9 +80,9 @@ vg.scene.Transition = (function() {
     this.callback();
     return stop;
   };
-  
+
   return trans;
-  
+
 })();
 
 vg.scene.transition = function(dur, ease) {

@@ -5,7 +5,7 @@ vg.svg.Handler = (function() {
     if (el) this.initialize(el);
     if (model) this.model(model);
   };
-  
+
   function svgHandler(handler) {
     var that = this;
     return function(evt) {
@@ -17,12 +17,12 @@ vg.svg.Handler = (function() {
       }
     };
   }
-  
+
   function eventName(name) {
     var i = name.indexOf(".");
     return i < 0 ? name : name.slice(0,i);
   }
-  
+
   var prototype = handler.prototype;
 
   prototype.initialize = function(el, pad, obj) {
@@ -32,18 +32,18 @@ vg.svg.Handler = (function() {
     this._obj = obj || null;
     return this;
   };
-  
+
   prototype.padding = function(pad) {
     this._padding = pad;
     return this;
   };
-  
+
   prototype.model = function(model) {
     if (!arguments.length) return this._model;
     this._model = model;
     return this;
   };
-  
+
   prototype.handlers = function() {
     var h = this._handlers;
     return vg.keys(h).reduce(function(a, k) {
@@ -56,7 +56,7 @@ vg.svg.Handler = (function() {
     var name = eventName(type),
         h = this._handlers,
         dom = d3.select(this._svg).node();
-        
+
     var x = {
       type: type,
       handler: handler,

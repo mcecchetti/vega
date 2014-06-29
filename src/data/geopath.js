@@ -9,7 +9,7 @@ vg.data.geopath = function() {
     d[output.path] = geopath(geojson(d));
     return d;
   });
-  
+
   map.projection = function(proj) {
     if (projection !== proj) {
       projection = proj;
@@ -21,7 +21,7 @@ vg.data.geopath = function() {
     }
     return map;
   };
-  
+
   vg.data.geo.params.forEach(function(name) {
     map[name] = function(x) {
       opt[name] = x;
@@ -29,7 +29,7 @@ vg.data.geopath = function() {
       return map;
     }
   });
-   
+
   map.value = function(field) {
     geojson = vg.accessor(field);
     return map;

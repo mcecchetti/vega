@@ -15,7 +15,7 @@ vg.scene.data = function(data, parentData) {
 
   // if inheriting default data, ensure its in an array
   if (data === DEFAULT) data = [DEFAULT];
-  
+
   return data;
 };
 

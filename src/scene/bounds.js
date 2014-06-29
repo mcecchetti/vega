@@ -39,7 +39,7 @@ vg.scene.bounds = (function() {
       : null;
     return pathBounds(o, p, bounds);
   }
-  
+
   function area(o, bounds) {
     var items = o.mark.items, o = items[0];
     var p = o.pathCache || (o.pathCache = parse(areaPath(items)));
@@ -87,7 +87,7 @@ vg.scene.bounds = (function() {
     }
     return bounds;
   }
-  
+
   function arc(o, bounds) {
     var cx = o.x || 0,
         cy = o.y || 0,
@@ -211,7 +211,7 @@ vg.scene.bounds = (function() {
     } else {
       y = y - 4*h/5; // alphabetic by default
     }
-    
+
     bounds.set(x, y, x+w, y+h);
     if (o.angle && !noRotate) {
       bounds.rotate(o.angle*Math.PI/180, o.x||0, o.y||0);
@@ -273,7 +273,7 @@ vg.scene.bounds = (function() {
         func  = methods[type],
         items = mark.items,
         item, i, len;
-        
+
     if (type==="area" || type==="line") {
       items[0].bounds = func(items[0], bounds);
     } else {
@@ -283,7 +283,7 @@ vg.scene.bounds = (function() {
     }
     mark.bounds = bounds;
   }
-  
+
   return {
     mark:  markBounds,
     item:  itemBounds,

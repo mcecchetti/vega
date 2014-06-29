@@ -2,7 +2,7 @@ vg.data.window = function() {
 
   var size = 2,
       step = 1;
-  
+
   function win(data) {
     data = vg.isArray(data) ? data : data.values || [];
     var runs = [], i, j, n=data.length-size, curr;
@@ -12,12 +12,12 @@ vg.data.window = function() {
     }
     return {values: runs};
   }
-  
+
   win.size = function(n) {
     size = n;
     return win;
   };
-  
+
   win.step = function(n) {
     step = n;
     return win;

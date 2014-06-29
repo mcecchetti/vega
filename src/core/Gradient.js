@@ -19,7 +19,7 @@ vg.Gradient = (function() {
     });
     return this;
   };
-  
+
   return gradient;
 })();
 

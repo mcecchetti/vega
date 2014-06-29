@@ -9,7 +9,7 @@ vg.parse.data = function(spec, callback) {
   };
 
   var count = 0;
-  
+
   function load(d) {
     return function(error, data) {
       if (error) {
@@ -20,18 +20,18 @@ vg.parse.data = function(spec, callback) {
       if (--count === 0) callback();
     }
   }
-  
+
   // process each data set definition
   (spec || []).forEach(function(d) {
     if (d.url) {
       count += 1;
-      vg.data.load(d.url, load(d)); 
+      vg.data.load(d.url, load(d));
     } else if (d.values) {
       model.load[d.name] = vg.data.read(d.values, d.format);
     } else if (d.source) {
       (model.source[d.source] || (model.source[d.source] = [])).push(d.name);
     }
-    
+
     if (d.transform) {
       var flow = vg.parse.dataflow(d);
       model.flow[d.name] = flow;
@@ -40,7 +40,7 @@ vg.parse.data = function(spec, callback) {
       });
     }
   });
-  
+
   // topological sort by dependencies
   var names = (spec || []).map(vg.accessor("name")),
       order = [], v = {}, n;
@@ -56,7 +56,7 @@ vg.parse.data = function(spec, callback) {
   }
   while (names.length) { if (v[n=names.pop()] !== 2) visit(n); }
   model.sorted = order.reverse();
-  
+
   if (count === 0) setTimeout(callback, 1);
   return model;
 };

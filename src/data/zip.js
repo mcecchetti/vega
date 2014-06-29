@@ -7,19 +7,19 @@ vg.data.zip = function() {
 
   function zip(data, db) {
     var zdata = db[z], zlen = zdata.length, v, d, i, len, map;
-    
+
     if (withKey) {
       map = {};
       zdata.forEach(function(s) { map[withKey(s)] = s; });
     }
-    
+
     for (i=0, len=data.length; i<len; ++i) {
       d = data[i];
       d[as] = map
         ? ((v=map[key(d)]) != null ? v : defaultValue)
         : zdata[i % zlen];
     }
-    
+
     return data;
   }
 
@@ -27,7 +27,7 @@ vg.data.zip = function() {
     z = d;
     return zip;
   };
-  
+
   zip["default"] = function(d) {
     defaultValue = d;
     return zip;
