@@ -39,6 +39,7 @@ vg.headless.View = (function() {
   prototype.sceneDAG = function() {
       var scene = this._model.scene();
       vg.scene.visit(scene, function(node) {
+        var layer = (node.def && node.def.layer) ? node.def.layer : undefined;
         delete node.axes;
         delete node.scales;
         delete node.legends;
@@ -47,6 +48,9 @@ vg.headless.View = (function() {
         delete node.group;
         delete node.bounds;
         delete node["bounds:prev"];
+        if (layer !== undefined) {
+          node.def = { "layer": layer };
+        }
       });
       if (scene && scene.items && scene.items[0]) {
           scene.items[0].padding = this._padding;
